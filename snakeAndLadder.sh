@@ -3,12 +3,14 @@
 #Initialising Player in Array
 WINPOINT=100
 player=( 'player01' )
+totalDiceRoll=0
 playerPosition[${player[i]}]=0
 
 while [ ${playerPosition[$player[i]]} -lt $WINPOINT ]
 do
+	totalDiceRoll=$(( $totalDiceRoll + 1 ))
 #Rolling dice to move the player in game
-   diceRoll=$(( RANDOM % 6 + 1 ))
+	diceRoll=$(( RANDOM % 6 + 1 ))
    typeOfMove=$(( RANDOM % 2 ))
 
 #To check the Player move for No-Play, Snake & Ladder
@@ -31,8 +33,10 @@ fi
 if [ ${playerPosition[${player[i]}]} -gt $WINPOINT ]
    then
    playerPosition[${player[i]}]=$(( ${playerPosition[${player[i]}]} - $diceRoll ))
-fi
-
+   fi
+echo "${player[i]} is at position ${playerPosition[@]}"
 done
+echo "Total number of time Dice Rolled: $totalDiceRoll"
+
 
 
