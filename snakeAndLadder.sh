@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Initialising Player in Array
-player=( 'player01' 'player02' )
+player=( 'player01' )
 
 for (( i=0; i < ${#player[@]}; i++ ))
 do
