@@ -22,9 +22,9 @@ do
       totalDiceRoll=$(( $totalDiceRoll +  1 ))
       currentPlayer=${playerPosition[${player[$j]}]}
       diceRoll=$(( RANDOM % 6 + 1 ))
-      typeOfMove=$(( RANDOM % 2 ))
+      typeOfMove=$(( RANDOM % 3 ))
 
-      if [ $typeOfMove == 0 ] #For Snake place
+      if [ $typeOfMove == 1 ] #For Snake place
       then
          playerPosition[${player[$j]}]=$(( $currentPlayer - $diceRoll ))
 
@@ -34,24 +34,32 @@ do
             playerPosition[${player[$j]}]=0
          fi
 
-      elif [ $typeOfMove == 1 ] #For Ladder
+      elif [ $typeOfMove == 2 ] #For Ladder
       then
          playerPosition[${player[$j]}]=$(( $currentPlayer + $diceRoll ))
-         diceTwice=$(( RANDOM % 6 +1 ))
-         playerPosition[${player[$j]}]=$(( ${playerPosition[${player[$j]}]} + $diceTwice ))
-         totalDiceRoll=$(( $totalDiceRoll +  1 ))
-      fi
 
 #Ensuring player winning position should not be greater than WINPOINT
-   if [ ${playerPosition[${player[$j]}]} -gt $WINPOINT ]
-   then
-      playerPosition[${player[$j]}]=$(( ${playerPosition[${player[$j]}]} - $diceTwice ))
-   fi
+         if [ ${playerPosition[${player[$j]}]} -gt $WINPOINT ]
+         then
+            playerPosition[${player[$j]}]=$currentPlayer
+         else
+            diceTwice=$(( RANDOM % 6 +1 ))
+            playerPosition[${player[$j]}]=$(( ${playerPosition[${player[$j]}]} + $diceTwice ))
+
+            if [ ${playerPosition[${player[$j]}]} -gt $WINPOINT ]
+            then
+               playerPosition[${player[$j]}]=$(( ${playerPosition[${player[$j]}]} - $diceTwice ))
+               totalDiceRoll=$(( $totalDiceRoll +  1 ))
+            fi
+         fi
+      else
+         playerPosition[${player[$j]}]=$currentPlayer
+      fi
 
 #Ensuring player winning position should be equal to WINPOINT
    if [ ${playerPosition[${player[$j]}]} -eq $WINPOINT ]
    then
-      echo "Player ${player[$j]} Won The Game"
+     echo "Player ${player[$j]} Won The Game"
       flag=1
    fi
 
@@ -60,5 +68,3 @@ do
 done
 echo "${player[0]} is at position: ${playerPosition[${player[0]}]}"
 echo "${player[1]} is at position: ${playerPosition[${player[1]}]}"
-
-
