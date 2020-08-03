@@ -4,7 +4,7 @@
 player=('P1' 'P2')
 WINPOINT=100
 flag=0
-totalDiceroll=0
+totalDiceRoll=0
 
 declare -A playerPosition
 
@@ -58,7 +58,7 @@ do
    done
 
 done
-echo "${player[0]} is at position: ${playerPosition[${player[o]}]}"
+echo "${player[0]} is at position: ${playerPosition[${player[0]}]}"
 echo "${player[1]} is at position: ${playerPosition[${player[1]}]}"
 
 
